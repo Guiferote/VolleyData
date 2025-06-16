@@ -3,8 +3,9 @@
     public class Set
     {
         public int Id { get; set; }
-        public Partida Partida { get; set; }
-        public int PontosEquipeA {  get; set; }
-        public int PontosEquipeB { get; set; }
+        public int PartidaId { get; set; }
+        public virtual Partida Partida { get; set; }
+        public int PontosEquipeCasa { get; set; }
+        public int PontosEquipeVisitante { get; set; }
     }
 }

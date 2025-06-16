@@ -3,10 +3,16 @@
     public class Partida
     {
         public int Id { get; set; }
-        public Equipe EquipeA { get; set; }
-        public Equipe EquipeB { get; set; }
-        public int SetsVencidosEquipeA { get; set; }
-        public int SetsVencidosEquipeB { get; set; }
-        public List<Set> Sets { get; set; }
+        public int CampeonatoId { get; set; }
+        public virtual Campeonato Campeonato { get; set; }
+
+        public int EquipeCasaId { get; set; }
+        public virtual Equipe EquipeCasa { get; set; }
+        public int EquipeVisitanteId { get; set; }
+        public virtual Equipe EquipeVisitante { get; set; }
+
+        public int SetsVencidosEquipeCasa { get; set; }
+        public int SetsVencidosEquipeVisitante { get; set; }
+        public virtual ICollection<Set> Sets { get; set; }
     }
 }
