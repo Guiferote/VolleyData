@@ -7,20 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VolleyData.Data;
 using VolleyData.Models;
-using VolleyData.Services.Interfaces;
 
-namespace VolleyData.Pages.Campeonatos
+namespace VolleyData.Pages.Tecnicos
 {
     public class DeleteModel : PageModel
     {
-        private readonly ICampeonatoService _campeonatoService;
+        private readonly VolleyData.Data.VolleyDataDbContext _context;
 
-        public DeleteModel(ICampeonatoService campeonatoService) {
-            _campeonatoService = campeonatoService;
+        public DeleteModel(VolleyData.Data.VolleyDataDbContext context)
+        {
+            _context = context;
         }
 
         [BindProperty]
-        public Campeonato Campeonato { get; set; } = default!;
+        public Tecnico Tecnico { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace VolleyData.Pages.Campeonatos
                 return NotFound();
             }
 
-            var campeonato = await _campeonatoService.GetByIdAsync(id.Value);
+            var tecnico = await _context.Tecnicos.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (campeonato == null)
+            if (tecnico == null)
             {
                 return NotFound();
             }
             else
             {
-                Campeonato = campeonato;
+                Tecnico = tecnico;
             }
             return Page();
         }
@@ -49,11 +49,12 @@ namespace VolleyData.Pages.Campeonatos
                 return NotFound();
             }
 
-            var campeonato = await _campeonatoService.GetByIdAsync(id.Value);
-            if (campeonato != null)
+            var tecnico = await _context.Tecnicos.FindAsync(id);
+            if (tecnico != null)
             {
-                Campeonato = campeonato;
-               await _campeonatoService.DeleteAsync(Campeonato.Id);
+                Tecnico = tecnico;
+                _context.Tecnicos.Remove(Tecnico);
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");

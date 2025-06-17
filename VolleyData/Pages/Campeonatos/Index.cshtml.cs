@@ -7,23 +7,23 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VolleyData.Data;
 using VolleyData.Models;
+using VolleyData.Services.Interfaces;
 
 namespace VolleyData.Pages.Campeonatos
 {
     public class IndexModel : PageModel
     {
-        private readonly VolleyData.Data.VolleyDataDbContext _context;
-
-        public IndexModel(VolleyData.Data.VolleyDataDbContext context)
-        {
-            _context = context;
+        private readonly ICampeonatoService _campeonatoService;
+       
+        public IndexModel(ICampeonatoService campeonatoService) {
+            _campeonatoService = campeonatoService;
         }
 
-        public IList<Campeonato> Campeonato { get;set; } = default!;
+        public IList<Campeonato> Campeonatos { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Campeonato = await _context.Campeonatos.ToListAsync();
+            Campeonatos = await _campeonatoService.GetAllAsync();
         }
     }
 }

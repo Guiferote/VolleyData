@@ -7,33 +7,39 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VolleyData.Data;
 using VolleyData.Models;
-using VolleyData.Services.Interfaces;
 
-namespace VolleyData.Pages.Campeonatos
+namespace VolleyData.Pages.Atletas
 {
     public class CreateModel : PageModel
     {
-        private readonly ICampeonatoService _campeonatoService;
-        public CreateModel(ICampeonatoService campeonatoService) {
-            _campeonatoService = campeonatoService;
+        private readonly VolleyData.Data.VolleyDataDbContext _context;
+
+        public CreateModel(VolleyData.Data.VolleyDataDbContext context)
+        {
+            _context = context;
         }
 
         public IActionResult OnGet()
         {
+        ViewData["EquipeId"] = new SelectList(_context.Equipes, "Id", "Nome");
             return Page();
         }
 
         [BindProperty]
-        public Campeonato Campeonato { get; set; } = default!;
+        public Atleta Atleta { get; set; } = default!;
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                ViewData["EquipeId"] = new SelectList(_context.Equipes, "Id", "Nome");
                 return Page();
             }
 
-            await _campeonatoService.CreateAsync(Campeonato);
+            _context.Atletas.Add(Atleta);
+            await _context.SaveChangesAsync();
+
+
 
             return RedirectToPage("./Index");
         }

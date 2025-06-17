@@ -1,0 +1,37 @@
+﻿@page
+@model VolleyData.Pages.Sets.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Set</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Set.Partida)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Set.Partida.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Set.PontosEquipeCasa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Set.PontosEquipeCasa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Set.PontosEquipeVisitante)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Set.PontosEquipeVisitante)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Set.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

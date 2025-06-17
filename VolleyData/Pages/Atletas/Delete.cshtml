@@ -1,0 +1,52 @@
+﻿@page
+@model VolleyData.Pages.Atletas.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Atleta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.NumeroCamisa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.NumeroCamisa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.Posicao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.Posicao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.AlturaCm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.AlturaCm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.Equipe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.Equipe.Id)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Atleta.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

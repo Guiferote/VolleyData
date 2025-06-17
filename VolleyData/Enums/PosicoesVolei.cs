@@ -7,6 +7,7 @@
         Ponteiro,
         Oposto,
         Central,
-        Libero
+        Libero,
+        Sem_Definicao
     }
 }

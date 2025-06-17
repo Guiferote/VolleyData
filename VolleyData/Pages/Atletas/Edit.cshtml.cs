@@ -8,20 +8,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VolleyData.Data;
 using VolleyData.Models;
-using VolleyData.Services.Interfaces;
 
-namespace VolleyData.Pages.Campeonatos
+namespace VolleyData.Pages.Atletas
 {
     public class EditModel : PageModel
     {
-        private readonly ICampeonatoService _campeonatoService;
+        private readonly VolleyData.Data.VolleyDataDbContext _context;
 
-        public EditModel(ICampeonatoService campeonatoService) {
-            _campeonatoService = campeonatoService;
+        public EditModel(VolleyData.Data.VolleyDataDbContext context)
+        {
+            _context = context;
         }
 
         [BindProperty]
-        public Campeonato Campeonato { get; set; } = default!;
+        public Atleta Atleta { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +30,18 @@ namespace VolleyData.Pages.Campeonatos
                 return NotFound();
             }
 
-            var campeonato = await _campeonatoService.GetByIdAsync(id.Value);
-            if (campeonato == null)
+            var atleta =  await _context.Atletas.FirstOrDefaultAsync(m => m.Id == id);
+            if (atleta == null)
             {
                 return NotFound();
             }
-            Campeonato = campeonato;
+            Atleta = atleta;
+           ViewData["EquipeId"] = new SelectList(_context.Equipes, "Id", "Id");
             return Page();
         }
+
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -45,13 +49,15 @@ namespace VolleyData.Pages.Campeonatos
                 return Page();
             }
 
+            _context.Attach(Atleta).State = EntityState.Modified;
+
             try
             {
-                await _campeonatoService.UpdateAsync(Campeonato);
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CampeonatoExists(Campeonato.Id))
+                if (!AtletaExists(Atleta.Id))
                 {
                     return NotFound();
                 }
@@ -64,9 +70,9 @@ namespace VolleyData.Pages.Campeonatos
             return RedirectToPage("./Index");
         }
 
-        private bool CampeonatoExists(int id)
+        private bool AtletaExists(int id)
         {
-            return _campeonatoService.GetByIdAsync(id) == null ? false : true;
+            return _context.Atletas.Any(e => e.Id == id);
         }
     }
 }

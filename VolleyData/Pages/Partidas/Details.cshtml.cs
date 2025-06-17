@@ -7,33 +7,35 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VolleyData.Data;
 using VolleyData.Models;
-using VolleyData.Services.Interfaces;
 
-namespace VolleyData.Pages.Campeonatos
+namespace VolleyData.Pages.Partidas
 {
     public class DetailsModel : PageModel
     {
-        private readonly ICampeonatoService _campeonatoService;
-        public DetailsModel(ICampeonatoService campeonatoService) {
-            _campeonatoService = campeonatoService;
-        }
-        public Campeonato Campeonato { get; set; } = default!;
+        private readonly VolleyData.Data.VolleyDataDbContext _context;
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public DetailsModel(VolleyData.Data.VolleyDataDbContext context)
+        {
+            _context = context;
+        }
+
+        public Partida Partida { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var campeonato = await _campeonatoService.GetByIdAsync(id);
-            if (campeonato == null)
+            var partida = await _context.Partidas.FirstOrDefaultAsync(m => m.Id == id);
+            if (partida == null)
             {
                 return NotFound();
             }
             else
             {
-                Campeonato = campeonato;
+                Partida = partida;
             }
             return Page();
         }

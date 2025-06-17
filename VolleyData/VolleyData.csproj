@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Pages\Equipes\" />
   </ItemGroup>
 
   <ItemGroup>

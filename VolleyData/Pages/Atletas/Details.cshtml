@@ -1,0 +1,49 @@
+﻿@page
+@model VolleyData.Pages.Atletas.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Atleta</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.NumeroCamisa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.NumeroCamisa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.Posicao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.Posicao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.AlturaCm)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.AlturaCm)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Atleta.Equipe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Atleta.Equipe.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Atleta.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

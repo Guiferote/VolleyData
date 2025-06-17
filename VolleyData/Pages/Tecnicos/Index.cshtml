@@ -1,5 +1,5 @@
 ﻿@page
-@model VolleyData.Pages.Campeonatos.IndexModel
+@model VolleyData.Pages.Tecnicos.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,16 +14,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Campeonatos[0].Nome)
+                @Html.DisplayNameFor(model => model.Tecnico[0].Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tecnico[0].Equipe)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Campeonatos) {
+@foreach (var item in Model.Tecnico) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipe.Id)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

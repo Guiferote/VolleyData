@@ -1,0 +1,58 @@
+﻿@page
+@model VolleyData.Pages.Atletas.EditModel
+@using VolleyData.Enums
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Atleta</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Atleta.Id" />
+            <div class="form-group">
+                <label asp-for="Atleta.Nome" class="control-label"></label>
+                <input asp-for="Atleta.Nome" class="form-control" />
+                <span asp-validation-for="Atleta.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Atleta.NumeroCamisa" class="control-label"></label>
+                <input asp-for="Atleta.NumeroCamisa" class="form-control" />
+                <span asp-validation-for="Atleta.NumeroCamisa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Atleta.Posicao" class="control-label"></label>
+                 <select asp-for="Atleta.Posicao" class="form-control" asp-items="Html.GetEnumSelectList<PosicoesVolei>()">
+                    <option value="">-- Selecione uma Posição --</option>
+                </select>
+                <span asp-validation-for="Atleta.Posicao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Atleta.AlturaCm" class="control-label"></label>
+                <input asp-for="Atleta.AlturaCm" class="form-control" />
+                <span asp-validation-for="Atleta.AlturaCm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Atleta.EquipeId" class="control-label"></label>
+                <select asp-for="Atleta.EquipeId" class="form-control" asp-items="ViewBag.EquipeId"></select>
+                <span asp-validation-for="Atleta.EquipeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

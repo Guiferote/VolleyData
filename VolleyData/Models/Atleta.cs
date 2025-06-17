@@ -1,4 +1,5 @@
-﻿using VolleyData.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using VolleyData.Enums;
 
 namespace VolleyData.Models
 {
@@ -9,7 +10,8 @@ namespace VolleyData.Models
         public int NumeroCamisa { get; set; }
         public PosicoesVolei Posicao { get; set; }
         public int AlturaCm { get; set; }
+        [Display(Name = "Equipe")]
         public int EquipeId { get; set; }
-        public virtual Equipe Equipe { get; set; }
+        public virtual Equipe? Equipe { get; set; }
     }
 }
